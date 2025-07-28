@@ -92,9 +92,15 @@ Then open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ### 4. Retrieve the Admin Password
 
+For the web portal (user `admin`), get the generated password:
+
 ```bash
 terraform output -raw argocd_initial_admin_password
 ```
+
+> May need a second `terraform apply` for now...
+
+> With macOS Terminal and `zsh` and similar., igrore trailing `%` for the password.
 
 ---
 
@@ -130,10 +136,11 @@ argocd app list
 
 ## Troubleshooting
 
-### Argo CD Pods Not Ready?
+### Argo CD Pods and/or Related Not Ready?
 Use:
 ```bash
 kubectl get pods -n argocd
+kubectl get all -n argocd
 ```
 
 ### Password Needs Two Terraform Applies
@@ -144,6 +151,9 @@ This is likely a terminal artifact due to a missing newline. It is **not** part 
 
 ### ArgoCD Logout
 At this time, delete `~/.config/argocd/config` for full reset...
+
+### General Helm Issues
+Ensure all is up to date: `helm repo update`
 
 ---
 

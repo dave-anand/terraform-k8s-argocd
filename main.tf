@@ -13,19 +13,11 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   version    = var.argocd_chart_version
 
-#   values = [
-#     <<EOF
-# server:
-#   service:
-#     type: NodePort # No `LoadBalancer` support in Minikube
-# EOF
-#   ]
-
   values = [
     yamlencode({
       server = {
         service = {
-          type = "ClusterIP" # or NodePort if needed
+          type = "ClusterIP" # or NodePort if needed with Minikube; no `LoadBalancer` support in Minikube
           portHttp = 80
           portHttps = 443
         }
@@ -38,11 +30,3 @@ resource "helm_release" "argocd" {
     kubernetes_namespace.argocd
   ]
 }
-
-
-# MiniKube Cleanup: Explicitly Delete the CRDs (even if Helm keeps them)
-resource "time_sleep" "wait_helm_cleanup" {
-  destroy_duration = "15s"
-  depends_on       = [helm_release.argocd]
-}
-
