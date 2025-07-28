@@ -136,7 +136,7 @@ Use:
 kubectl get pods -n argocd
 ```
 
-### Password needs 2 Terraform Applies
+### Password Needs Two Terraform Applies
 `terraform output -raw argocd_initial_admin_password` (in `argocd_login.sh`) needs 2 Terraform runs, even though nothing is changed on the second run.
 
 ### `%` Character in Password?
