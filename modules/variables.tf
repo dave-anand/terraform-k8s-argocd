@@ -5,12 +5,10 @@ variable "kubeconfig_path" {
 
 variable "argocd_namespace" {
   type        = string
-  default     = "argocd"
   description = "Namespace to deploy Argo CD"
 }
 
 variable "argocd_chart_version" {
   type        = string
-  default     = "5.51.6"
   description = "Version of the Argo CD Helm chart"
 }
